@@ -44,5 +44,15 @@
     </div>
 
     <script src="./app.js"></script>
+    <script>
+      // Register icon handler only when running inside Miro iframe
+      if (window.top !== window.self && window.miro && window.miro.onReady) {
+        miro.onReady(() => {
+          miro.board.ui.on('icon:click', async () => {
+            await miro.board.ui.openPanel({ url: 'app.html' });
+          });
+        });
+      }
+    </script>
   </body>
 </html>
