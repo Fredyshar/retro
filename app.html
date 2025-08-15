@@ -22,12 +22,24 @@
 
       <div class="panel audio-panel">
         <div class="field">
-          <label for="spinAudio">Звук вращения</label>
+          <label for="spinAudio">Звук вращения <span class="sub">(по умолчанию: baraban_1995_hq.mp3)</span><br/>
+            <span class="sub">Текущий: <span id="spinLoaded">baraban_1995_hq.mp3</span></span>
+          </label>
           <input type="file" id="spinAudio" accept="audio/*" />
+          <div class="volume">
+            <label for="spinVolume">Громкость: <span id="spinVolLabel">70%</span></label>
+            <input type="range" id="spinVolume" min="0" max="100" value="70" />
+          </div>
         </div>
         <div class="field">
-          <label for="endAudio">Звук окончания</label>
+          <label for="endAudio">Звук окончания <span class="sub">(по умолчанию: pole_letter_wrong.mp3)</span><br/>
+            <span class="sub">Текущий: <span id="endLoaded">pole_letter_wrong.mp3</span></span>
+          </label>
           <input type="file" id="endAudio" accept="audio/*" />
+          <div class="volume">
+            <label for="endVolume">Громкость: <span id="endVolLabel">20%</span></label>
+            <input type="range" id="endVolume" min="0" max="100" value="20" />
+          </div>
         </div>
       </div>
 
