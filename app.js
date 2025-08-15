@@ -12,6 +12,18 @@ const segmentsListEl = document.getElementById('segmentsList');
 let spinAudio = null, spinAudioUrl = null;
 let endAudio = null, endAudioUrl = null;
 
+// Default sounds (can be replaced via file inputs)
+try {
+  spinAudio = new Audio('./baraban_1995_hq.mp3');
+  spinAudio.loop = true;
+  spinAudio.volume = 0.7;
+} catch (_) {}
+try {
+  endAudio = new Audio('./pole_letter_wrong.mp3');
+  endAudio.loop = false;
+  endAudio.volume = 1.0;
+} catch (_) {}
+
 // Model
 let segments = [
   'Степан', 'Саша', 'Бота', 'Никита', 'Алексей', 'Ренат',
