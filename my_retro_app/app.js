@@ -117,7 +117,8 @@ function drawWheel(angle) {
     ctx.rotate(i * slice + slice / 2);
     ctx.translate(radius * 0.65, 0);
     ctx.rotate(Math.PI / 2);
-    ctx.fillStyle = '#111827';
+    const wedgeColor = colors[i % colors.length].toLowerCase();
+    ctx.fillStyle = wedgeColor === '#1f2a80' ? '#ffffff' : '#111827';
     ctx.font = 'bold 20px system-ui, -apple-system, Segoe UI, Roboto, Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
