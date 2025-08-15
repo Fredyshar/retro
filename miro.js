@@ -1,4 +1,10 @@
 async function init() {
+	// Не инициализируем SDK, если страница открыта напрямую, а не внутри Miro
+	if (window.top === window.self) {
+		console.warn("[ring] This page must run inside Miro. Open it from the Miro app icon.");
+		return;
+	}
+
 	miro.onReady(() => {
 		console.log("[ring] Miro SDK ready");
 		const uiUrl = new URL("index.html", window.location.href).toString();
