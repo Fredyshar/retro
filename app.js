@@ -12,32 +12,49 @@ const segmentsListEl = document.getElementById('segmentsList');
 let spinAudio = null, spinAudioUrl = null;
 let endAudio = null, endAudioUrl = null;
 
-// Default sounds (can be replaced via file inputs)
-try {
-  spinAudio = new Audio('./baraban_1995_hq.mp3');
-  spinAudio.loop = true;
-  spinAudio.volume = 0.7;
-} catch (_) {}
-try {
-  endAudio = new Audio('./pole_letter_wrong.mp3');
-  endAudio.loop = false;
-  endAudio.volume = 1.0;
-} catch (_) {}
+// Preload default sounds via blob URLs to bypass CSP issues in iframe
+async function preloadDefaultAudio() {
+  try {
+    const [spinRes, endRes] = await Promise.all([
+      fetch('./baraban_1995_hq.mp3'),
+      fetch('./pole_letter_wrong.mp3')
+    ]);
+    if (!spinRes.ok || !endRes.ok) throw new Error('Default audio fetch failed');
+    const [spinBlob, endBlob] = await Promise.all([spinRes.blob(), endRes.blob()]);
+
+    if (spinAudioUrl) URL.revokeObjectURL(spinAudioUrl);
+    spinAudioUrl = URL.createObjectURL(spinBlob);
+    spinAudio = new Audio(spinAudioUrl);
+    spinAudio.loop = true;
+    spinAudio.volume = 0.7;
+
+    if (endAudioUrl) URL.revokeObjectURL(endAudioUrl);
+    endAudioUrl = URL.createObjectURL(endBlob);
+    endAudio = new Audio(endAudioUrl);
+    endAudio.loop = false;
+    endAudio.volume = 1.0;
+
+    console.log('[ring] default audio preloaded');
+  } catch (e) {
+    console.warn('[ring] default audio preload failed', e);
+  }
+}
+preloadDefaultAudio();
 
 const audioState = { unlocked: false };
 async function unlockAudioPlayback() {
   if (audioState.unlocked) return;
   try {
     if (!spinAudio) {
-      spinAudio = new Audio('./baraban_1995_hq.mp3');
-      spinAudio.loop = true;
-      spinAudio.volume = 0.7;
+      await preloadDefaultAudio();
     }
+    if (!spinAudio) return;
     const prevVol = spinAudio.volume;
-    spinAudio.volume = 0.0001;
+    spinAudio.muted = true;
     await spinAudio.play();
     spinAudio.pause();
     spinAudio.currentTime = 0;
+    spinAudio.muted = false;
     spinAudio.volume = prevVol;
     audioState.unlocked = true;
     console.log('[ring] audio unlocked');
