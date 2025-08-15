@@ -73,6 +73,11 @@ h1 {
   margin: 8px 0;
 }
 
+/* Make audio panel single-column to fit narrow sidebar */
+.audio-panel {
+  grid-template-columns: 1fr;
+}
+
 .audio-panel .field label,
 .add-panel .field label { display: block; font-size: 12px; color: #6b7280; margin-bottom: 6px; }
 .field input[type="text"] {
