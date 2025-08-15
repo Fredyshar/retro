@@ -24,6 +24,28 @@ try {
   endAudio.volume = 1.0;
 } catch (_) {}
 
+const audioState = { unlocked: false };
+async function unlockAudioPlayback() {
+  if (audioState.unlocked) return;
+  try {
+    if (!spinAudio) {
+      spinAudio = new Audio('./baraban_1995_hq.mp3');
+      spinAudio.loop = true;
+      spinAudio.volume = 0.7;
+    }
+    const prevVol = spinAudio.volume;
+    spinAudio.volume = 0.0001;
+    await spinAudio.play();
+    spinAudio.pause();
+    spinAudio.currentTime = 0;
+    spinAudio.volume = prevVol;
+    audioState.unlocked = true;
+    console.log('[ring] audio unlocked');
+  } catch (e) {
+    console.warn('[ring] audio unlock failed', e);
+  }
+}
+
 // Model
 let segments = [
   'Степан', 'Саша', 'Бота', 'Никита', 'Алексей', 'Ренат',
@@ -170,6 +192,7 @@ function getPointerAngleUnwrapped(e) {
 }
 
 function onPointerDown(e) {
+  unlockAudioPlayback();
   e.preventDefault();
   canvas.setPointerCapture(e.pointerId);
   isDragging = true;
