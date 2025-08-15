@@ -33,7 +33,7 @@ h1 {
   transition: transform .4s ease;
   transform-origin: 50% 0%;
 }
-.wheel-wrap.zoomed { transform: scale(1.35) translateY(-24px); }
+.wheel-wrap.zoomed { transform: scale(1.75) translateY(-36px); }
 
 #wheel {
   width: 100%;

@@ -192,6 +192,12 @@ function stopSpin() {
   deceleration = 0;
   drawWheel(currentAngle);
   updateResult(currentAngle);
+  // Zoom focus on the pointer area for 5s
+  try {
+    const wrap = document.querySelector('.wheel-wrap');
+    wrap?.classList.add('zoomed');
+    setTimeout(() => wrap?.classList.remove('zoomed'), 5000); // keep zoom for 5s
+  } catch(_) {}
   stopSpinSound();
   setTimeout(() => playEndSound(), 0);
 }

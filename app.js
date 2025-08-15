@@ -197,7 +197,7 @@ function stopSpin() {
   try {
     const wrap = document.querySelector('.wheel-wrap');
     wrap?.classList.add('zoomed');
-    setTimeout(() => wrap?.classList.remove('zoomed'), 5000);
+    setTimeout(() => wrap?.classList.remove('zoomed'), 5000); // keep zoom for 5s
   } catch(_) {}
   stopSpinSound();
   setTimeout(() => playEndSound(), 0);
