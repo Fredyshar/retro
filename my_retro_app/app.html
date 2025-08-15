@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RING – Колесо</title>
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+    <link rel="stylesheet" href="./wheel.css" />
+  </head>
+  <body>
+    <div class="app">
+      <h1>Колесо</h1>
+      <div class="wheel-wrap">
+        <canvas id="wheel" width="520" height="520" aria-label="Игровое колесо"></canvas>
+        <div class="pointer" aria-hidden="true"></div>
+      </div>
+
+      <div class="controls">
+        <div class="hint">Крутите колесо мышкой (зажмите и раскрутите).</div>
+        <button id="removeCurrent" disabled>Убрать выпавший сегмент</button>
+      </div>
+
+      <div class="panel audio-panel">
+        <div class="field">
+          <label for="spinAudio">Звук вращения</label>
+          <input type="file" id="spinAudio" accept="audio/*" />
+        </div>
+        <div class="field">
+          <label for="endAudio">Звук окончания</label>
+          <input type="file" id="endAudio" accept="audio/*" />
+        </div>
+      </div>
+
+      <div class="panel add-panel">
+        <div class="field grow">
+          <input id="newSegment" type="text" placeholder="Новое значение (текст или число)" />
+        </div>
+        <button id="addSegment">Добавить</button>
+      </div>
+
+      <div id="segmentsList" class="tags"></div>
+
+      <div class="result">Выпало: <span id="result">—</span></div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
